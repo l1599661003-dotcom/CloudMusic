@@ -59,6 +59,8 @@ jobs:
           REGION: ${{ secrets.REGION }}
           FUNCTION_NAME: ${{ secrets.FUNCTION_NAME }}
 
+          SLS_GEO_LOCATION: no-cn
+
           DEFAULT_SONG_NUMER_CRON: "10 0 0 * * * *"
           DEFAULT_CRON: "0 30 0 * * * *"
           DEFAULT_REGION: "ap-guangzhou"
