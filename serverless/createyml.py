@@ -75,7 +75,7 @@ try:
         f.write("  description: 网易云音乐自动任务\n")
         f.write("  src: ./\n")
         f.write("  handler: index.main_handler\n")
-        f.write("  runtime: Python3.6\n")
+        f.write("  runtime: Python3.9\n")
         f.write("  region: " + getEnv("REGION", getEnv("DEFAULT_REGION")) + "\n")
         f.write("  memorySize: 128\n")
         f.write("  timeout: 900\n")
