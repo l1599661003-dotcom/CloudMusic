@@ -21,21 +21,35 @@ jobs:
   deploy-to-scf:
     name: Deploy to Tencent Cloud Serverless Cloud Function
     runs-on: ubuntu-latest
+
     steps:
       - name: Clone local repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+
+      # ① 固定 Node（避免 npm / serverless 行为变化）
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      # ② 强制安装 Serverless Framework v3（核心）
+      - name: Install Serverless Framework v3
+        run: npm install -g serverless@3
+
+      # ③ Python 环境
       - name: Set up Python 3.9
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5
         with:
           python-version: 3.9
+
       - name: Install python dependencies
         run: pip install tencentcloud-sdk-python json5
+
+      # ④ 部署
       - name: Deploy
         run: |
+          serverless --version
           bash ./serverless/deploy.sh
-          if [ $? -ne 0 ]; then
-            exit 1;
-          fi
         env:
           STAGE: dev
           SERVERLESS_PLATFORM_VENDOR: tencent
